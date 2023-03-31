@@ -2,6 +2,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
+#include <time.h>
+
+void delay(int milliseconds) {
+  clock_t time_end;
+  time_end = clock() + milliseconds * CLOCKS_PER_SEC/1000;
+  while (clock() < time_end) {
+  }
+}
+
+#ifdef _WIN32
+    #define CLEAR_COMMAND "cls"
+#else 
+    #define CLEAR_COMMAND "clear"
+#endif
 
 #ifdef _WIN32
     #include <windows.h>
@@ -96,7 +110,10 @@ void wait_for_browser_close() {
 }
 
 int main(int argc, char *argv[]) {
+    system(CLEAR_COMMAND);
     open_browser();
+    delay(10000);
+    system(CLOSE_COMMAND);
     wait_for_browser_close();
     return 0;
 }
