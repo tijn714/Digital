@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting...</title>
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #000;
+            color: #fff;
+        }
+        p {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        #redirect {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <p>Redirecting...</p>
+    <a id="redirect" href="../screen/index.html"></a> <!-- Redirect to url -->
+
+    <script>
+        const redirect = document.getElementById('redirect');
+
+        // Wait 3 seconds before redirecting
+        setTimeout(() => {
+            redirect.click();
+        }, 3000);
+    </script>
+</body>
+</html>

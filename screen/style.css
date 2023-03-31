@@ -1,0 +1,52 @@
+@font-face {
+    font-family: 'Linotype';
+    src: url('linotypeunivers-basicblackitalic.otf');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Linotype';
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Linotype';
+  }
+  
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Linotype';
+  }
+  
+  .slideshow {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Linotype';
+  }
+  
+  .slide {
+    display: none;
+  }
+  
+  .message {
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    border-top: 1px solid #ddd;
+    font-family: 'Linotype';
+  }
+  
+  h1, p {
+    text-align: center;
+    font-family: 'Linotype';
+  }
+  

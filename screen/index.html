@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Digital Signage</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="slideshow">
+        <div class="slide">
+          <img src="#">
+        </div>
+        <div class="slide">
+          <img src="#">
+        </div>
+        <div class="slide">
+          <img src="#">
+        </div>
+      </div>
+      <div class="message">
+        <h1>Welcome to our store!</h1>
+        <p>Check out our latest products and offers.</p>
+      </div>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // Get the document element
+        const elem = document.documentElement;
+  
+        // Function to toggle fullscreen mode
+        function toggleFullscreen() {
+          if (!document.fullscreenElement) {
+            elem.requestFullscreen().catch((err) => {
+              console.log(
+                `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
+              );
+            });
+          } else {
+            document.exitFullscreen();
+          }
+        }
+  
+        // Listen for F11 key press to toggle fullscreen mode
+        document.addEventListener("keydown", (event) => {
+          if (event.key === "F11") {
+            event.preventDefault();
+            toggleFullscreen();
+          }
+        });
+      </script>  
+  </body>
+</html>
