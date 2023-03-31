@@ -1,2 +1,2 @@
 all:
-	gcc -Wall src/main.c -o program
+	gcc -Wall src/main.c -o program -lm

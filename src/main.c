@@ -96,23 +96,5 @@ int main(int argc, char *argv[]) {
     } else {
         printf("The SKs are different!\n");
     }
-
-    free(sk1);
-    free(key1);
-    free(sk2);
-    free(key2);
-    free(sk1_enc_round1);
-    free(sk2_enc_round1);
-    free(sk1_enc_round2);
-    free(sk2_enc_round2);
-    free(sk1_enc_round3);
-    free(sk2_enc_round3);
-    free(sk1_enc_round4);
-    free(sk2_enc_round4);
-    free(sk1_enc_round5);
-    free(sk2_enc_round5);
-    free(sk1_enc);
-    free(sk2_enc);
-
     return 0;
 }
