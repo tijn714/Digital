@@ -2,31 +2,28 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include <unistd.h>
 
 #ifdef _WIN32
+    #include <windows.h>
     #define OS_NAME "Windows"
     #define OPEN_COMMAND "start %s"
     #define CLOSE_COMMAND "taskkill /IM firefox.exe"
 #elif __APPLE__
+    #include <ApplicationServices/ApplicationServices.h>
     #define OS_NAME "macOS"
     #define OPEN_COMMAND "open %s"
     #define CLOSE_COMMAND "killall firefox"
 #else
+    #include <unistd.h>
     #define OS_NAME "Linux"
     #define OPEN_COMMAND "xdg-open %s"
     #define CLOSE_COMMAND "pkill firefox"
 #endif
 
-#ifdef _WIN32
-    #define TASKLIST_COMMAND "tasklist /FI \"WINDOWTITLE eq %s\" /FI \"IMAGENAME eq firefox.exe\""
-#elif __APPLE__
-    #define PS_COMMAND "ps -ax | grep firefox | grep -v grep | awk '{print $1}'"
-#else
-    #define PS_COMMAND "ps -ef | grep firefox | grep -v grep | awk '{print $2}'"
-#endif
 
-void open() {
+#define PASSWORD_TO_EXIT 'Password123'
+
+void open_browser() {
     // Determine the name of the HTML file
     char filename[] = "page/index.html";
 
@@ -42,52 +39,64 @@ void open() {
     // We do this by sending a key combination to the browser
     // The key combination is different for each operating system
     #ifdef _WIN32
-        system("powershell -Command \"[System.Windows.Forms.SendKeys]::SendWait('^{F11}')\"");
+        keybd_event(VK_F11, 0, 0, 0);
+        keybd_event(VK_F11, 0, KEYEVENTF_KEYUP, 0);
     #elif __APPLE__
-        system("osascript -e 'tell application \"System Events\" to key code 144 using {control down, command down}'");
+        CGEventRef event = CGEventCreateKeyboardEvent(NULL, (CGKeyCode)144, true);
+        CGEventSetFlags(event, kCGEventFlagMaskCommand | kCGEventFlagMaskControl);
+        CGEventPost(kCGSessionEventTap, event);
+        CFRelease(event);
     #elif LINUX
         system("xdotool key F11");
     #endif
+}
 
-    // If the user closes the browser, prompt them to confirm that they want to exit the program, if not, open the browser again
+bool is_browser_open() {
+    // Determine the command to check if the browser is open based on the operating system
+    char command[1024];
+    #ifdef _WIN32
+        sprintf(command, "tasklist /FI \"IMAGENAME eq firefox.exe\" /FI \"WINDOWTITLE eq %s\"", "index");
+    #elif __APPLE__
+        sprintf(command, "ps -ax | grep firefox | grep -v grep | awk '{print $1}'");
+    #else
+        sprintf(command, "ps -ef | grep firefox | grep -v grep | awk '{print $2}'");
+    #endif
+
+    // Execute the command
+    FILE *fp = popen(command, "r");
+    if (fp == NULL) {
+        printf("Failed to run command\n" );
+        exit(1);
+    }
+
+    // Read the output of the command
+    char output[1024];
+    fgets(output, sizeof(output) - 1, fp);
+
+    // Close the command
+    pclose(fp);
+
+    // Return true if the browser is open, false otherwise
+    return strlen(output) != 0;
+}
+
+void wait_for_browser_close() {
     while (true) {
-        // Determine the command to check if the browser is open based on the operating system
-        #ifdef _WIN32
-            sprintf(command, TASKLIST_COMMAND, "index");
-        #elif __APPLE__
-            sprintf(command, PS_COMMAND);
-        #else
-            sprintf(command, PS_COMMAND);
-        #endif
-
-        // Execute the command
-        FILE *fp = popen(command, "r");
-        if (fp == NULL) {
-            printf("Failed to run command\n" );
-            exit(1);
-        }
-
-        // Read the output of the command
-        char output[1024];
-        fgets(output, sizeof(output) - 1, fp);
-
-        // Close the command
-        pclose(fp);
-
-        // If the browser is not open, prompt the user to confirm that they want to exit the program
-        if (strlen(output) == 0) {
-            printf("Browser closed. Exit program? (y/n): ");
+        if (!is_browser_open()) {
+            // If the browser is not open, prompt the user to confirm that they want to exit the program
+            printf("Browser closed. Please enter the super secret password to exit: ");
             char c = getchar();
-            if (c == 'y') {
+            if (c == PASSWORD_TO_EXIT) {
                 break;
             } else {
-                open();
+                open_browser();
             }
         }
     }
 }
 
 int main(int argc, char *argv[]) {
-    open();
+    open_browser();
+    wait_for_browser_close();
     return 0;
 }
