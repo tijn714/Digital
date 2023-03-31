@@ -52,6 +52,9 @@ void open_browser() {
     // When we are in the browser, we must set it to full screen so that the user cannot see the desktop
     // We do this by sending a key combination to the browser
     // The key combination is different for each operating system
+
+    delay(2000);
+
     #ifdef _WIN32
         keybd_event(VK_F11, 0, 0, 0);
         keybd_event(VK_F11, 0, KEYEVENTF_KEYUP, 0);
@@ -112,7 +115,7 @@ void wait_for_browser_close() {
 int main(int argc, char *argv[]) {
     system(CLEAR_COMMAND);
     open_browser();
-    delay(10000);
+    delay(8000);
     system(CLOSE_COMMAND);
     wait_for_browser_close();
     return 0;
