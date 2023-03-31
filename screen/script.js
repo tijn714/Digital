@@ -13,3 +13,11 @@ function showSlides() {
   setTimeout(showSlides, 5000); // Change image every 5 seconds
 }
 
+
+// Sent key F11 to fullscreen
+document.addEventListener('keydown', function(event) {
+    if(event.keyCode == 122) {
+        toggleFullScreen();
+    }
+}
+);

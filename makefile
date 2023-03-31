@@ -1,2 +1,16 @@
-all:
-	gcc -Wall src/main.c -o program -lm
+CC = clang
+CFLAGS = -Wall -Wextra -Werror -Wpedantic
+
+ifdef DEBUG
+	CFLAGS += -g
+endif
+
+LDFLAGS = -framework CoreFoundation -framework CoreGraphics
+
+all: main
+
+main: src/main.c
+	$(CC) $(LDFLAGS) $^ -o $@
+
+clean:
+	rm -f main main.o
