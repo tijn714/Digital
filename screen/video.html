@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video </title>
+    <style>
+
+@font-face {
+    font-family: 'Linotype';
+    src: url('linotypeunivers-basicblackitalic.otf');
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Linotype';
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Linotype';
+  }
+  
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Linotype';
+  }
+  
+  .slideshow {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Linotype';
+  }
+  
+  .slide {
+    display: flex;
+  }
+
+  .button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slideshow">
+            <div class="slide">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/FbgSqxpPMx4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                <br>
+                <a href="index.html" class="button">Go back</a>
+            </div>
+        </div>
+        <div class="message">
+            <p>Slideshow will be shown after 5 minutes.</p>
+          </div>
+    </div>
+
+    <script>
+        // sleep for 5 minutes
+        setTimeout(function() {
+            window.location.href = "index.html";
+        }, 300000);
+    </script>
+</body>
+</html>
