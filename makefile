@@ -16,4 +16,4 @@ clean:
 	rm -f main main.o
 
 linux: src/main.c
-	$(CC) -Wall main.c -o program -lm
+	$(CC) -Wall src/main.c -o program -lm
