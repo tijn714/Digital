@@ -16,4 +16,4 @@ clean:
 	rm -f main main.o
 
 linux: src/main.c
-	$(CC) $(LDFLAGS) $^ -o $@
+	$(CC) -Wall main.c -o program -lm
