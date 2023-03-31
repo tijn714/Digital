@@ -25,30 +25,5 @@
       </div>
     </div>
     <script src="script.js"></script>
-    <script>
-        // Get the document element
-        const elem = document.documentElement;
-  
-        // Function to toggle fullscreen mode
-        function toggleFullscreen() {
-          if (!document.fullscreenElement) {
-            elem.requestFullscreen().catch((err) => {
-              console.log(
-                `Error attempting to enable full-screen mode: ${err.message} (${err.name})`
-              );
-            });
-          } else {
-            document.exitFullscreen();
-          }
-        }
-  
-        // Listen for F11 key press to toggle fullscreen mode
-        document.addEventListener("keydown", (event) => {
-          if (event.key === "F11") {
-            event.preventDefault();
-            toggleFullscreen();
-          }
-        });
-      </script>  
   </body>
 </html>
